@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block controls %}
+  {% if user %}
+	<a class="gray-link" href="/user">User info</a>    
+  {% endif %}
+  
+{% endblock %}
+
+{% block content %}
+  Bienvenue à la place du hockey!
+{% endblock %}

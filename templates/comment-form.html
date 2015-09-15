@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block controls %}
+  {% if user %}
+	<a class="gray-link" href="/_edit{{path}}">edit</a>    
+  {% endif %}
+  
+    <a class="gray-link" href="/_history{{path}}">history</a>  
+{% endblock %}
+
+{% block content %}
+  
+	Commentaire:	
+	<hr>
+	
+	<div class="row">	
+		<div class="row">		
+			<div class="col-md-3">
+				<a href="/user/{{c.author.name}}">{{c.author.name}}</a>		
+			</div>
+			<div class="col-md-9" align="right">
+				{{ c.lastModified.strftime("%c") }}						
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1">
+				<img src="http://placehold.it/50x50" class="img-responsive">
+			</div>
+			<div class="col-md-8">
+				{{c.content}}
+			</div>
+			<div class="col-md-2" align="right">
+				<div class="row">
+					{{c.upVotes}}
+					{{c.downVotes}}
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>	
+	
+
+	<div class="row">
+		Réponses:			
+		<table class="table table-striped table-hover table-bordered comment-table">
+			
+			<tbody>	
+				{% for s in sub_comments %}
+				  
+				  <tr>
+					<td>
+					
+					<div class="row">								
+						<div class="col-md-1">	
+						</div>
+						<div class="col-md-3">
+							<a href="/user/{{s.author.name}}">{{s.author.name}}</a>		
+						</div>
+						<div class="col-md-8" align="right">
+							{{ s.lastModified.strftime("%c") }}						
+						</div>
+					</div>
+					<div class="row">						
+						<div class="col-md-1">
+						</div>
+						<div class="col-md-1">
+							<img src="http://placehold.it/50x50" class="img-responsive">
+						</div>
+						<div class="col-md-7">
+							{{s.content}}
+						</div>
+						<div class="col-md-2" align="right">
+							<div class="row">
+								{{s.upVotes}}
+								{{s.downVotes}}
+							</div>
+						</div>
+					</div>	  
+					
+					</td>	
+				  </tr>		
+				{% endfor %}
+			</tbody>			
+		</table>
+		
+		<hr>
+	</div>	
+	<div class="row">
+		Répondre:
+		<hr>
+		<form class="post-comment" method="post">
+			<textarea name="content">
+				
+			</textarea>
+			<div class="post-footer">
+			  <button type="submit">Envoyer</button>
+			</div>
+		</form>
+	</div>	
+{% endblock %}
+
+{% block recent %}
+  
+	
+		Commentaires récents:		
+		<table class="table table-hover table-responsive table-bordered comment-table">
+		{% for c in comment_recent %}
+		
+			<tr>
+			  			  
+			  <td class="content-cell">
+				<a class="gray-link" href="/user/{{c.author.name}}">{{c.author.name}}</a> 
+				 :
+				<a class="gray-link" title="{{c.pathPage}}" href="{{c.pathPage}}">{{c.content[:50]}}</a> 
+				
+				{% if c.content|length > 50 %}
+					...
+				{% endif %}
+			  </td>
+			  
+			</tr>
+			
+		  {% endfor %}
+		  </table>		
+		
+		<hr>
+{% endblock %}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+  <link type="text/css" rel="stylesheet" href="/static/main.css" />
+  <link type="text/css" rel="stylesheet" href="/static/bootstrap.min.css" />
+  
+  <title>La place du hockey</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+		<div class="row">
+		  <div class="col-md-12"> 
+			<hr>
+			Bienvenue à la place du hockey
+			 <div class="controls" align="right"> 
+				{% if user %}
+				  <a class="gray-link" href="/user/{{user.name}}">{{user.name}}</a> (<a class="gray-link" href="/logout">logout</a>)
+				{% else %}
+				  <a class="gray-link" href="/login">login</a>
+				  |
+				  <a class="gray-link" href="/signup">signup</a>
+				{% endif %}
+				
+				{% block controls %}
+				{% endblock %}
+			 </div>
+			<hr>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-12"> 
+			<hr>
+			Menu Menu Menu
+			<hr>
+		  </div>
+		</div>
+		
+		<div class="row">
+		
+		
+		
+			<div class="col-md-2">
+				Plan du site <br>
+				{% for c in pages %}
+					<a class="gray-link" title="{{c.lastModified.strftime("%c")}}" href="{{c.pathPage}}">{{c.pathPage}}</a> <br>
+				{% endfor %}
+			</div>
+			
+			
+			
+			<div class="col-md-8">
+				<hr>
+				{% block content %}
+				{% endblock %}				
+			</div>	
+
+			
+			
+			<div class="col-md-2">
+				<hr>
+				<div class="row">
+					{% block recent %}
+					{% endblock %}
+				</div>
+				<hr>
+				<div class="row">
+					Liens externes
+				</div>
+			</div>
+			
+			
+			
+			
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-12"> 
+			<hr>
+			
+		  </div>
+		</div>
+	</div>
+  	
+</body>
+
+</html>
+
